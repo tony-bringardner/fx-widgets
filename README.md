@@ -36,7 +36,7 @@ anyway.
 ```xml
 <dependency>
     <groupId>us.bringardner</groupId>
-    <artifactId>fx-widgets</artifactId>
+    <artifactId>bringardner-fx-widgets</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```

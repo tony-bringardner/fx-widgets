@@ -6,7 +6,7 @@
 	<!-- Standalone: not part of Parley, so no parley-parent. The license, developer, SCM and
 	     Maven Central release profile below are copied from parley-parent. -->
 	<groupId>us.bringardner</groupId>
-	<artifactId>fx-widgets</artifactId>
+	<artifactId>bringardner-fx-widgets</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
@@ -208,7 +208,7 @@
 		<!-- the recent list itself (RecentItems), which uses no UI toolkit -->
 		<dependency>
 			<groupId>us.bringardner</groupId>
-			<artifactId>swing-widgets</artifactId>
+			<artifactId>bringardner-swing-widgets</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 		</dependency>
 		<!-- javafx-graphics and javafx-base come with it, for this platform -->
