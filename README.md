@@ -9,6 +9,28 @@ twin of the Swing widget.
 - Depends on JavaFX 21 (`javafx-controls`) and swing-widgets, for the UI-free list behind the menu
 - Apache License 2.0
 
+## Why this library exists
+
+JavaFX is missing a few things a desktop application needs, such as a "recent files" menu, and
+[swing-widgets](https://github.com/tony-bringardner/swing-widgets) only helps Swing applications.
+fx-widgets fills those gaps for JavaFX, and only those: it doesn't copy Swing widgets that JavaFX
+already covers.
+
+It's a separate library from swing-widgets because JavaFX costs more to depend on:
+
+- **Java 17 or later.** JavaFX 21 needs it; swing-widgets runs on Java 11.
+- **Native libraries for each platform.** Since Java 11, JavaFX isn't part of the JDK. It runs only
+  on the platforms OpenJFX is built for, and an application has to ship it.
+
+Keeping JavaFX here means a Swing application never needs it.
+
+It depends on swing-widgets for one thing: `RecentItems`, the list behind both "recent" menus. It
+uses no UI toolkit, so a Swing and a JavaFX menu behave the same and, given the same preferences,
+share one list. Depending on swing-widgets doesn't start Swing, and every platform with JavaFX has it
+anyway.
+
+**Use fx-widgets** when your application's UI is JavaFX.
+
 ## Getting started
 
 ```xml
