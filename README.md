@@ -68,6 +68,16 @@ Differences from the Swing menu:
 - The maximum is asked for by `askMaxItems`, and errors shown by `showError`; tests override them
   instead of showing dialogs.
 
+## Swing alternatives
+
+| fx-widgets | In Swing |
+|---|---|
+| `RecentItemsMenu` | swing-widgets' `RecentItemsMenu`, which shares its list with this one |
+
+swing-widgets has more, because Swing lacks more: date and time pickers, a thread-safe progress
+monitor updater, a password field with a show/hide toggle, and gradient styling. Its README's
+"JavaFX alternatives" section shows what to use for each of those in JavaFX.
+
 ## Building
 
 ```bash
