@@ -1,0 +1,281 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Standalone: not part of Parley, so no parley-parent. The license, developer, SCM and
+	     Maven Central release profile below are copied from parley-parent. -->
+	<groupId>us.bringardner</groupId>
+	<artifactId>fx-widgets</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>FX Widgets</name>
+	<description>Reusable JavaFX components: a "recent items" menu that shares its list with
+		swing-widgets' Swing menu.</description>
+	<url>https://github.com/tony-bringardner/fx-widgets</url>
+	<inceptionYear>1998</inceptionYear>
+
+	<licenses>
+		<license>
+			<name>The Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>tony-bringardner</id>
+			<name>Tony Bringardner</name>
+			<url>https://github.com/tony-bringardner</url>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:https://github.com/tony-bringardner/fx-widgets.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/tony-bringardner/fx-widgets.git</developerConnection>
+		<url>https://github.com/tony-bringardner/fx-widgets/tree/main</url>
+		<tag>HEAD</tag>
+	</scm>
+
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/tony-bringardner/fx-widgets/issues</url>
+	</issueManagement>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<!-- JavaFX 21 needs Java 17 -->
+		<maven.compiler.release>17</maven.compiler.release>
+		<javafx.version>21.0.2</javafx.version>
+		<!-- Written to the jar manifest as Automatic-Module-Name -->
+		<moduleName>us.bringardner.fx</moduleName>
+		<junit.version>5.11.4</junit.version>
+		<jacoco.version>0.8.15</jacoco.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>enforce-basics</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>[3.6.3,)</version>
+								</requireMavenVersion>
+								<requireJavaVersion>
+									<version>[17,)</version>
+								</requireJavaVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Plugins listed only in pluginManagement are NOT executed, so the source jar is declared here. -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+			<!-- Code coverage: 'mvn verify' writes the report to target/site/jacoco/index.html -->
+			<plugin>
+				<groupId>org.jacoco</groupId>
+				<artifactId>jacoco-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<version>3.5.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.13.0</version>
+					<configuration>
+						<release>${maven.compiler.release}</release>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-jar-plugin</artifactId>
+					<version>3.4.2</version>
+					<configuration>
+						<archive>
+							<manifestEntries>
+								<Automatic-Module-Name>${moduleName}</Automatic-Module-Name>
+							</manifestEntries>
+							<manifest>
+								<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							</manifest>
+						</archive>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-source-plugin</artifactId>
+					<version>3.3.1</version>
+					<executions>
+						<execution>
+							<id>attach-sources</id>
+							<goals>
+								<goal>jar-no-fork</goal>
+							</goals>
+							<!-- package (not deploy) so the source jar is attached BEFORE the deploy plugin runs -->
+							<phase>package</phase>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-javadoc-plugin</artifactId>
+					<version>3.11.2</version>
+					<configuration>
+						<!-- Lenient so existing code releases cleanly; tighten to all,-missing later -->
+						<doclint>none</doclint>
+						<release>${maven.compiler.release}</release>
+					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-gpg-plugin</artifactId>
+					<version>3.2.7</version>
+				</plugin>
+				<plugin>
+					<groupId>org.sonatype.central</groupId>
+					<artifactId>central-publishing-maven-plugin</artifactId>
+					<version>0.11.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<version>3.1.4</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<version>3.5.2</version>
+					<!-- If an argLine is ever added here, write it as <argLine>@{argLine} ...</argLine>
+					     so it does not replace the JaCoCo agent set by prepare-agent. -->
+				</plugin>
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>${jacoco.version}</version>
+					<executions>
+						<!-- Attaches the JaCoCo agent to the surefire test JVM -->
+						<execution>
+							<id>prepare-agent</id>
+							<goals>
+								<goal>prepare-agent</goal>
+							</goals>
+						</execution>
+						<!-- HTML, XML and CSV reports in target/site/jacoco -->
+						<execution>
+							<id>report</id>
+							<phase>verify</phase>
+							<goals>
+								<goal>report</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<!-- GitHub Packages, used by release.sh. Maven Central releases use: mvn -Prelease clean deploy -->
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>tony-bringardner</name>
+			<url>https://maven.pkg.github.com/tony-bringardner/fx-widgets</url>
+		</repository>
+	</distributionManagement>
+
+	<dependencies>
+		<!-- the recent list itself (RecentItems), which uses no UI toolkit -->
+		<dependency>
+			<groupId>us.bringardner</groupId>
+			<artifactId>swing-widgets</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+		</dependency>
+		<!-- javafx-graphics and javafx-base come with it, for this platform -->
+		<dependency>
+			<groupId>org.openjfx</groupId>
+			<artifactId>javafx-controls</artifactId>
+			<version>${javafx.version}</version>
+		</dependency>
+		<!-- junit-jupiter includes the API (to compile tests) and the engine (to run them) -->
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<profiles>
+		<!--
+		  Release profile: everything Maven Central needs.
+		    mvn -Prelease clean deploy
+		  Kept out of normal builds so day-to-day work needs no GPG key or Central token.
+		-->
+		<profile>
+			<id>release</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+								<!-- Passphrase comes from the MAVEN_GPG_PASSPHRASE environment variable -->
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.sonatype.central</groupId>
+						<artifactId>central-publishing-maven-plugin</artifactId>
+						<extensions>true</extensions>
+						<configuration>
+							<!-- Matches the <server><id> in ~/.m2/settings.xml -->
+							<publishingServerId>central</publishingServerId>
+							<!-- false: you review and click Publish on central.sonatype.com -->
+							<autoPublish>false</autoPublish>
+							<deploymentName>${project.artifactId} ${project.version}</deploymentName>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+</project>
