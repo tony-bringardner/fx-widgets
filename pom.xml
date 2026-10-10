@@ -48,8 +48,8 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<!-- JavaFX 21 needs Java 17 -->
-		<maven.compiler.release>17</maven.compiler.release>
-		<javafx.version>21.0.2</javafx.version>
+		<maven.compiler.release>11</maven.compiler.release>
+		<javafx.version>17.0.20</javafx.version>
 		<!-- Written to the jar manifest as Automatic-Module-Name -->
 		<moduleName>us.bringardner.fx</moduleName>
 		<junit.version>5.11.4</junit.version>

@@ -5,8 +5,8 @@ Reusable JavaFX components, the JavaFX counterpart of
 where JavaFX already has something (CSS styling, `Alert`, prompt text, `Task` progress) there is no
 twin of the Swing widget.
 
-- **Java 17** or later (JavaFX 21 needs it)
-- Depends on JavaFX 21 (`javafx-controls`) and swing-widgets, for the UI-free list behind the menu
+- **Java 11** or later, like the rest of the library's components
+- Depends on JavaFX 17 LTS (`javafx-controls`) and swing-widgets, for the UI-free list behind the menu
 - Apache License 2.0
 
 ## Why this library exists
@@ -18,7 +18,6 @@ already covers.
 
 It's a separate library from swing-widgets because JavaFX costs more to depend on:
 
-- **Java 17 or later.** JavaFX 21 needs it; swing-widgets runs on Java 11.
 - **Native libraries for each platform.** Since Java 11, JavaFX isn't part of the JDK. It runs only
   on the platforms OpenJFX is built for, and an application has to ship it.
 
